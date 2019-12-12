@@ -18,25 +18,29 @@ const AnyReactComponent = ({ text }) => (
     </div>
 );
 
-export default class MapContainer extends React.Component {
+export default class MapContainer extends Component {
     static defaultProps = {
-        center: { lat: 59.95, lng: 30.33 },
+        center: { lat: 44.1025, lng: 9.8241 },
         zoom: 11,
     };
 
     render() {
         return (
-            <GoogleMapReact
-                bootstrapURLKeys={{ key: 'h' }}
-                defaultCenter={this.props.center}
-                defaultZoom={this.props.zoom}
-            >
-                <AnyReactComponent
-                    lat={59.955413}
-                    lng={30.337844}
-                    text={'Kreyser Avrora'}
-                />
-            </GoogleMapReact>
+            <div style={{ height: '50vh', width: '100%' }}>
+                <GoogleMapReact
+                    bootstrapURLKeys={{
+                        key: 'AIzaSyDxTJbq2XdBuDML6j4ziSNGnqj8v8u1tBU',
+                    }}
+                    defaultCenter={this.props.center}
+                    defaultZoom={this.props.zoom}
+                >
+                    <AnyReactComponent
+                        lat={44.2}
+                        lng={9.9}
+                        text={'Kreyser Avrora'}
+                    />
+                </GoogleMapReact>
+            </div>
         );
     }
 }
