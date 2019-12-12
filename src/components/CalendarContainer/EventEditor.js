@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import EventForm from './EventForm';
-
+import moment from 'moment';
+import { timeout } from 'q';
 export default class EventEditor extends Component {
     state = {
         title: '',
@@ -18,8 +19,22 @@ export default class EventEditor extends Component {
         this.setState({
             [event.target.name]: event.target.value,
         });
+        console.log(this.state);
     };
 
+    onSubmit = event => {
+        event.preventDefault();
+        const date = moment(this.props.slot.date).format('YYYY-MM-DD');
+        console.log(date);
+        const startsAt = moment(date + ' ' + this.state.startsAt).format(
+            'YYYY-MMMM-DDDD HH:mm:ss'
+        );
+        const endsAt = moment(date + ' ' + this.state.endsAt).format(
+            'YYYY-MMMM-DDDD HH:mm:ss'
+        );
+        const events = { ...this.state, startsAt, endsAt };
+        console.log(events);
+    };
     render() {
         return (
             <Modal

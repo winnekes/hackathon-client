@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { Container } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
+import { tripsFetched } from './actions';
+import { TRIPS_PATH } from './constants';
 import { getData } from './actions/dispatchHandler';
 import { getUserData } from './actions/user';
 import './components/assets/styles/main.css';
@@ -13,8 +15,8 @@ import HomeContainer from './components/HomeContainer';
 import LoginContainer from './components/LoginContainer';
 import NavigationContainer from './components/NavigationContainer';
 import SignUpContainer from './components/SignUpContainer';
-import TripListContainer from './components/TripListContainer';
 import { USERS_PATH } from './constants';
+import TripListContainer from './components/TripListContainer';
 
 class App extends Component {
     lsData = lscache.get('travelin-data');
@@ -25,6 +27,7 @@ class App extends Component {
                 `${USERS_PATH}?id=${this.lsData.user.id}`,
                 getUserData
             );
+            this.props.getData(TRIPS_PATH, tripsFetched);
         }
     };
 

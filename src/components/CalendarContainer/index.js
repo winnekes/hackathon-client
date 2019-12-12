@@ -97,6 +97,7 @@ const mapStateToProps = (state, ownProps) => {
             })),
         };
     }
+    return {};
 };
 export default connect(mapStateToProps, { getData, deleteData, postData })(
     CalendarContainer
