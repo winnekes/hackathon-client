@@ -2,8 +2,9 @@ import React from 'react';
 import { Card, Button } from 'react-bootstrap';
 import Moment from 'react-moment';
 import moment from 'moment';
-
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import { BASE_URL } from '../../constants';
+import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
+import '../assets/styles/events.css';
 
 export default function EventDetails(props) {
     const event = props.event;
@@ -65,8 +66,25 @@ export default function EventDetails(props) {
                                     </Moment>
                                 </>
                             )}
+                            <div className="images">
+                                {' '}
+                                {event.images.map(image => (
+                                    <div>
+                                        <FaTrash />
+                                        <FaEye />
+                                        <img
+                                            key={image.id}
+                                            className="thumbnail"
+                                            alt=""
+                                            src={`${BASE_URL}${image.url}`}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </Card.Text>
-                        <Button>Add images</Button>
+                        <Button onClick={props.imageEditMode}>
+                            Add images
+                        </Button>
                     </Card.Body>
                 </Card>
             )}

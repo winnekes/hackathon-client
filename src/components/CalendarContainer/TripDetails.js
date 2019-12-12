@@ -4,6 +4,8 @@ import Moment from 'react-moment';
 import '../assets/styles/trips.css';
 import MemberEditor from './MemberEditor';
 
+import { FaEdit, FaTrash, FaEye, FaEyeSlash } from 'react-icons/fa';
+
 export default function TripDetails(props) {
     const [modalShow, setModalShow] = React.useState(false);
     const trip = props.trip;
@@ -14,7 +16,10 @@ export default function TripDetails(props) {
             }}
         >
             <div className="jumbotron-content">
-                <h2>{trip.title}</h2>
+                <h2>
+                    {trip.title} <FaEdit />
+                    <FaTrash /> <FaEye /> <FaEyeSlash />
+                </h2>
                 <h4>
                     from <Moment format="D/M/YY">{trip.startsAt}</Moment> to{' '}
                     <Moment format="D/M/YY">{trip.endsAt}</Moment>
