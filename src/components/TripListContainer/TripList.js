@@ -1,16 +1,20 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import { Jumbotron, Button } from 'react-bootstrap';
-import '../assets/styles/trips.css';
+import { Button, Jumbotron } from 'react-bootstrap';
 import Moment from 'react-moment';
-import moment from 'moment';
 import { Link } from 'react-router-dom';
+import '../assets/styles/trips.css';
+
+import TripEditor from './TripEditor';
 
 export default function TripList(props) {
+    const [modalShow, setModalShow] = React.useState(false);
     return (
         <div className="trips-container">
             <h1>Here are all your trips, {props.user.username}</h1>
             {props.trips.map(trip => (
                 <Jumbotron
+                    key={trip.id}
                     style={{
                         background: `url(${trip.image}) no-repeat center center fixed`,
                     }}
@@ -34,6 +38,10 @@ export default function TripList(props) {
                     </div>
                 </Jumbotron>
             ))}
+            <Button onClick={() => setModalShow(true)}>
+                Create a new trip
+            </Button>
+            <TripEditor show={modalShow} onHide={() => setModalShow(false)} />
         </div>
     );
 }

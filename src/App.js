@@ -20,6 +20,7 @@ import TripListContainer from './components/TripListContainer';
 
 class App extends Component {
     lsData = lscache.get('travelin-data');
+
     componentDidMount = () => {
         if (this.lsData && this.lsData.user) {
             this.props.getData(

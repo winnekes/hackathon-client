@@ -3,43 +3,28 @@ import { connect } from 'react-redux';
 import { deleteData, getData, postData } from '../../actions/dispatchHandler';
 import Calendar from './Calendar';
 import TripDetails from './TripDetails';
+import MemberEditor from './MemberEditor';
+import EventEditor from './EventEditor';
 
 class CalendarContainer extends Component {
     state = {
         selectedEvent: null,
+        selectedDate: new Date(),
+        eventEditorMode: false,
+        selectedSlot: null,
     };
-    /*    onNavigate = date => {
-        this.props.getData(
-            `${SHIFT_ENTRIES_PATH}?month=${date}`,
-            shiftEntriesFetched
-        );
+    onNavigate = (a, b, c) => {
+        console.log(a, b, c);
     };
     onSelectEvent = event => {
         console.log(event);
         this.setState({ selectedEvent: event });
     };
 
-    onSelectModel = model => {
-        this.setState({ selectedModel: model });
-    };
-
     onSelectSlot = slot => {
-        if (this.state.selectedModel) {
-            console.log(this.state.selectedModel, slot);
-
-            const modifiedData = {
-                shiftModel: this.state.selectedModel.id,
-                startsAt: moment(slot.start).toLocaleString(),
-            };
-
-            this.props
-                .postData(SHIFT_ENTRIES_PATH, shiftEntryCreated, modifiedData)
-                .then(() =>
-                    this.props.getData(SHIFT_ENTRIES_PATH, shiftEntriesFetched)
-                );
-        }
+        this.setState({ eventEditorMode: true, selectedSlot: slot });
     };
- */
+
     /*     onDeleteModel = id => {
         this.props
             .deleteData(SHIFT_MODELS_PATH, id, shiftModelDeleted)
@@ -56,18 +41,37 @@ class CalendarContainer extends Component {
             .then(() => this.setState({ selectedEvent: null }));
     }; */
 
-    componentDidMount = () => {};
+    componentDidMount = () => {
+        if (this.props.trip) {
+            this.setState({ selectedDate: this.props.trip.startsAt });
+        }
+    };
     render() {
-        console.log('MY TRIP', this.props.trip);
         if (this.props.trip) {
             return (
                 <>
                     <h1>Your trip!</h1>
                     <TripDetails trip={this.props.trip} />
                     {this.props.events && (
-                        <div className="calendar-wrap">
-                            <Calendar events={this.props.events} />
-                        </div>
+                        <>
+                            <div className="calendar-wrap">
+                                <Calendar
+                                    events={this.props.events}
+                                    startDate={this.state.selectedDate}
+                                    onSelectSlot={this.onSelectSlot}
+                                    onNavigate={date => {
+                                        this.setState({ selectedDate: date });
+                                    }}
+                                />
+                            </div>
+                            <EventEditor
+                                show={this.state.eventEditorMode}
+                                onHide={() =>
+                                    this.setState({ eventEditorMode: false })
+                                }
+                                slot={this.state.selectedSlot}
+                            />
+                        </>
                     )}
                 </>
             );
@@ -78,9 +82,7 @@ class CalendarContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(ownProps);
     const trip = state.trips.find(trip => trip.id == ownProps.match.params.id);
-    console.log(trip);
     if (trip) {
         return {
             user: state.user,

@@ -16,7 +16,6 @@ class SignUpContainer extends Component {
 
     onSubmit = event => {
         event.preventDefault();
-        console.log(this.state);
         this.props.postData(USERS_PATH, null, this.state);
 
         this.setState({
@@ -25,8 +24,6 @@ class SignUpContainer extends Component {
             password: '',
             profileUrl: '',
         });
-
-        this.props.history.push('/');
     };
 
     onChange = event => {

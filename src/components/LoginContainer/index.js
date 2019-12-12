@@ -30,7 +30,6 @@ class LoginContainer extends Component {
     };
 
     render() {
-        console.log(this.state);
         return (
             <Fragment>
                 {!this.props.user && (

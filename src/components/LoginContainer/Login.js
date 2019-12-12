@@ -3,7 +3,6 @@ import { Form, Button } from 'react-bootstrap';
 import '../assets/styles/forms.css';
 
 export default function Login(props) {
-    console.log(props);
     return (
         <div className="main-form">
             <h1>Login</h1>

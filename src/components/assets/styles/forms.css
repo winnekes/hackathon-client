@@ -3,11 +3,6 @@
     max-width: 80%;
 }
 
-
-.main-form h1 {
-    margin-bottom: 30px;
-}
-
 .main-form form {
     margin: 0 auto;
     padding: 20px;
@@ -20,7 +15,7 @@
 }
 
 .main-form .form-group {
-    margin: 25px 0;
+    margin-bottom: 25px;
 }
 
 .main-form .btn {
