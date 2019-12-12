@@ -1,0 +1,30 @@
+.home {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    width: 30%;
+    text-align: center;
+}
+
+.home h1 {
+    letter-spacing: 10px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed;
+}
+
+.home img {
+    width: 200px;
+    height: auto;
+    margin: 80px;
+}
+
+.home nav {
+    margin: 40px;
+}
+
+.home nav button {
+    margin: 0 20px;
+}
