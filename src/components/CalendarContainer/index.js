@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteData, getData, postData } from '../../actions/dispatchHandler';
 import Calendar from './Calendar';
-import TripDetails from './TripDetails';
-import MemberEditor from './MemberEditor';
 import EventEditor from './EventEditor';
+import TripDetails from './TripDetails';
 
 class CalendarContainer extends Component {
     state = {
@@ -82,7 +81,9 @@ class CalendarContainer extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    const trip = state.trips.find(trip => trip.id == ownProps.match.params.id);
+    const trip = state.trips.find(
+        trip => trip.id === parseInt(ownProps.match.params.id)
+    );
     if (trip) {
         return {
             user: state.user,

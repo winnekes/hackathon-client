@@ -3,6 +3,7 @@ import { Form, Button } from 'react-bootstrap';
 import '../assets/styles/forms.css';
 
 export default function TripForm(props) {
+    console.log(props);
     return (
         <div className="main-form">
             <Form onSubmit={props.onSubmit}>
@@ -68,7 +69,6 @@ export default function TripForm(props) {
                         value={props.values.image}
                         type="text"
                         onChange={props.onChange}
-                        required
                     />
                 </Form.Group>
                 <Button

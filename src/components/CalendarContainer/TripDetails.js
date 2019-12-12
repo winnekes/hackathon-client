@@ -1,11 +1,9 @@
 import React from 'react';
-
-import { Jumbotron, Button } from 'react-bootstrap';
-
-import '../assets/styles/trips.css';
+import { Button, Jumbotron } from 'react-bootstrap';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
+import '../assets/styles/trips.css';
 import MemberEditor from './MemberEditor';
+
 export default function TripDetails(props) {
     const [modalShow, setModalShow] = React.useState(false);
     const trip = props.trip;
