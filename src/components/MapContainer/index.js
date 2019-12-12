@@ -27,6 +27,7 @@ export default class MapContainer extends React.Component {
     render() {
         return (
             <GoogleMapReact
+                bootstrapURLKeys={{ key: 'h' }}
                 defaultCenter={this.props.center}
                 defaultZoom={this.props.zoom}
             >
