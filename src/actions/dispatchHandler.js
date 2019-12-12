@@ -59,7 +59,6 @@ const call = (
     data = null,
     responseTransformer = null
 ) => dispatch => {
-    console.log(data);
     const lsData = lscache.get('travelin-data');
     let partialRequest = requestObject();
     if (lsData) {
@@ -79,7 +78,7 @@ const call = (
             } else {
                 actionData = response.body;
             }
-            console.log(actionData);
+
             if (actionCreator) {
                 dispatch(actionCreator(actionData));
             }

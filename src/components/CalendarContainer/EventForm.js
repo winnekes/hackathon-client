@@ -72,16 +72,6 @@ export default function EventForm(props) {
                         required
                     />
                 </Form.Group>
-                <Form.Group>
-                    <Form.Label>Upload an image:</Form.Label>
-                    <Form.Control
-                        name="image"
-                        value={props.values.image}
-                        type="text"
-                        onChange={props.onChange}
-                        required
-                    />
-                </Form.Group>
                 <Button
                     variant="secondary"
                     type="submit"

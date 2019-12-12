@@ -4,6 +4,7 @@ import { deleteData, getData, postData } from '../../actions/dispatchHandler';
 import Calendar from './Calendar';
 import EventEditor from './EventEditor';
 import TripDetails from './TripDetails';
+import EventDetailsContainer from '../EventDetailsContainer';
 
 class CalendarContainer extends Component {
     state = {
@@ -13,21 +14,22 @@ class CalendarContainer extends Component {
         selectedSlot: null,
     };
 
-    onSelectEvent = event => {
-        console.log(event);
-        this.setState({ selectedEvent: event });
+    onSelectEvent = async event => {
+        await this.setState({ selectedEvent: event });
     };
 
-    onSelectSlot = async slot => {
-        await this.setState({ eventEditorMode: true });
-        await this.setState({ selectedSlot: slot });
+    onSelectSlot = slot => {
+        this.setState({
+            selectedEvent: null,
+            selectedSlot: slot,
+            eventEditorMode: true,
+        });
     };
 
     componentDidMount = () => {
         if (this.props.trip) {
             this.setState({
                 selectedDate: this.props.trip.startsAt,
-                selectedSlot: null,
             });
         }
     };
@@ -44,23 +46,27 @@ class CalendarContainer extends Component {
                                     events={this.props.events}
                                     startDate={this.state.selectedDate}
                                     onSelectSlot={this.onSelectSlot}
+                                    onSelectEvent={this.onSelectEvent}
                                     onNavigate={date => {
                                         this.setState({ selectedDate: date });
                                     }}
                                 />
-                            </div>
-                            {this.state.selectedSlot && (
-                                <EventEditor
-                                    show={this.state.eventEditorMode}
-                                    onHide={() =>
-                                        this.setState({
-                                            eventEditorMode: false,
-                                        })
-                                    }
-                                    slot={this.state.selectedSlot}
-                                    trip={this.props.trip}
+                                <EventDetailsContainer
+                                    event={this.state.selectedEvent}
                                 />
-                            )}
+                            </div>
+
+                            <EventEditor
+                                show={this.state.eventEditorMode}
+                                onHide={() =>
+                                    this.setState({
+                                        eventEditorMode: false,
+                                    })
+                                }
+                                slot={this.state.selectedSlot}
+                                event={this.state.selectedEvent}
+                                trip={this.props.trip}
+                            />
                         </>
                     )}
                 </>

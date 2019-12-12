@@ -10,7 +10,7 @@ export default function TripDetails(props) {
     return (
         <Jumbotron
             style={{
-                background: `url(${trip.image}) no-repeat center center fixed`,
+                background: `url(${trip.image}) no-repeat center center`,
             }}
         >
             <div className="jumbotron-content">
@@ -27,7 +27,8 @@ export default function TripDetails(props) {
                             return (
                                 <>
                                     {' '}
-                                    and <span>{member.username}</span>
+                                    and{' '}
+                                    <span key={index}>{member.username}</span>
                                 </>
                             );
                         }
@@ -41,6 +42,7 @@ export default function TripDetails(props) {
                 <Button onClick={() => setModalShow(true)}>
                     add a traveler
                 </Button>
+
                 <MemberEditor
                     show={modalShow}
                     onHide={() => setModalShow(false)}

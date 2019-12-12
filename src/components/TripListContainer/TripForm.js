@@ -4,6 +4,7 @@ import '../assets/styles/forms.css';
 
 export default function TripForm(props) {
     console.log(props);
+
     return (
         <div className="main-form">
             <Form onSubmit={props.onSubmit}>
@@ -19,7 +20,7 @@ export default function TripForm(props) {
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Destination </Form.Label>
+                    <Form.Label>Destination: </Form.Label>
                     <Form.Control
                         name="destination"
                         value={props.values.destination}
@@ -67,8 +68,8 @@ export default function TripForm(props) {
                     <Form.Control
                         name="image"
                         value={props.values.image}
-                        type="text"
-                        onChange={props.onChange}
+                        type="file"
+                        onChange={props.onImageSelectHandler}
                     />
                 </Form.Group>
                 <Button

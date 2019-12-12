@@ -29,6 +29,17 @@ class TripEditor extends Component {
         });
     };
 
+    onImageSelectHandler = e => {
+        const param = e.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(param);
+
+        this.setState({
+            image: reader.result,
+        });
+        console.log(reader);
+    };
+
     render() {
         return (
             <Modal
@@ -49,6 +60,7 @@ class TripEditor extends Component {
                             values={this.state}
                             onSubmit={this.onSubmit}
                             onChange={this.onChange}
+                            onImageSelectHandler={this.onImageSelectHandler}
                             onHide={this.props.onHide}
                         />
                     </Modal.Body>
