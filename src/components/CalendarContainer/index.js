@@ -5,6 +5,8 @@ import Calendar from './Calendar';
 import EventEditor from './EventEditor';
 import TripDetails from './TripDetails';
 import EventDetailsContainer from '../EventDetailsContainer';
+import { eventDeleted, tripsFetched } from '../../actions';
+import { TRIPS_PATH } from '../../constants';
 
 class CalendarContainer extends Component {
     state = {
@@ -28,6 +30,13 @@ class CalendarContainer extends Component {
 
     onEditEvent = () => {
         this.setState({ selectedSlot: null, eventEditorMode: true });
+    };
+
+    onDeleteEvent = id => {
+        this.props
+            .deleteData(`events`, id, eventDeleted)
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
+        this.setState({ selectedEvent: null });
     };
 
     componentDidMount = () => {
@@ -59,6 +68,7 @@ class CalendarContainer extends Component {
                                 <EventDetailsContainer
                                     event={this.state.selectedEvent}
                                     editMode={this.onEditEvent}
+                                    deleteEvent={this.onDeleteEvent}
                                 />
                             </div>
 

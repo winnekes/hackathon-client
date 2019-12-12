@@ -16,8 +16,8 @@ export default function EventDetails(props) {
     return (
         <div className="event-details">
             <h2>Event details</h2>
-            {!props.event && <p>Select an event to view</p>}
-            {props.event && (
+            {!event && <p>Select an event to view</p>}
+            {event && (
                 <Card
                     style={{
                         width: '16rem',
@@ -27,9 +27,7 @@ export default function EventDetails(props) {
                         <Card.Title>
                             {event.title} <FaEdit onClick={props.editMode} />
                             <FaTrash
-                                onClick={() => {
-                                    props.deleteEntry(event.id);
-                                }}
+                                onClick={() => props.deleteEvent(event.id)}
                             />
                         </Card.Title>
                         <Card.Subtitle className="mb-2 text-muted">
@@ -68,8 +66,7 @@ export default function EventDetails(props) {
                                 </>
                             )}
                         </Card.Text>
-                        <Card.Link href="#">Card Link</Card.Link>
-                        <Card.Link href="#">Close this view</Card.Link>
+                        <Button>Add images</Button>
                     </Card.Body>
                 </Card>
             )}

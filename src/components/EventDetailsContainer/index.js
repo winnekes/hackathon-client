@@ -7,6 +7,7 @@ export default class EventDetailsContainer extends Component {
             <EventDetails
                 event={this.props.event}
                 editMode={this.props.editMode}
+                deleteEvent={this.props.deleteEvent}
             />
         );
     }
