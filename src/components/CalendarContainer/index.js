@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getData, deleteData, postData } from '../../actions/dispatchHandler';
-import { Jumbotron, Button } from 'react-bootstrap';
+import { deleteData, getData, postData } from '../../actions/dispatchHandler';
 import Calendar from './Calendar';
-
-import moment from 'moment';
+import TripDetails from './TripDetails';
 
 class CalendarContainer extends Component {
     state = {
@@ -60,33 +58,42 @@ class CalendarContainer extends Component {
 
     componentDidMount = () => {};
     render() {
-        return (
-            <>
-                <Jumbotron>
+        console.log('MY TRIP', this.props.trip);
+        if (this.props.trip) {
+            return (
+                <>
                     <h1>Your trip!</h1>
-                    <p>
-                        This is a simple hero unit, a simple jumbotron-style
-                        component for calling extra attention to featured
-                        content or information.
-                    </p>
-                    <p>
-                        <Button variant="primary">Learn more</Button>
-                    </p>
-                </Jumbotron>
-                <div className="calendar-wrap">
-                    <Calendar user={this.props.user} />
-                </div>
-            </>
-        );
+                    <TripDetails trip={this.props.trip} />
+                    {this.props.events && (
+                        <div className="calendar-wrap">
+                            <Calendar events={this.props.events} />
+                        </div>
+                    )}
+                </>
+            );
+        } else {
+            return <p>Loading ...</p>;
+        }
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        shiftEntries: state.shiftEntries,
-        shiftModels: state.shiftModels,
-        user: state.user,
-    };
+const mapStateToProps = (state, ownProps) => {
+    console.log(ownProps);
+    const trip = state.trips.find(trip => trip.id == ownProps.match.params.id);
+    console.log(trip);
+    if (trip) {
+        return {
+            user: state.user,
+            trip,
+            events: trip.events.map(event => ({
+                id: event.id,
+                title: event.title,
+                start: event.startsAt,
+                end: event.endsAt,
+                ...event,
+            })),
+        };
+    }
 };
 export default connect(mapStateToProps, { getData, deleteData, postData })(
     CalendarContainer

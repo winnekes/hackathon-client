@@ -50,6 +50,11 @@ class App extends Component {
                             path="/trips"
                             component={TripListContainer}
                         />
+                        <Route
+                            exact
+                            path="/trips/:id"
+                            component={CalendarContainer}
+                        />
                     </Container>
                 </>
             );

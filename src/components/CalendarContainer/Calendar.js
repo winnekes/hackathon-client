@@ -28,7 +28,7 @@ export default function Calendar(props) {
             <ReactCalendar.Calendar
                 localizer={localizer}
                 views={['month']}
-                events={[]}
+                events={props.events}
                 eventPropGetter={eventStyleGetter}
                 onNavigate={props.onNavigate}
                 onSelectEvent={props.onSelectEvent}
