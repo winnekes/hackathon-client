@@ -26,6 +26,10 @@ class CalendarContainer extends Component {
         });
     };
 
+    onEditEvent = () => {
+        this.setState({ selectedSlot: null, eventEditorMode: true });
+    };
+
     componentDidMount = () => {
         if (this.props.trip) {
             this.setState({
@@ -33,6 +37,7 @@ class CalendarContainer extends Component {
             });
         }
     };
+
     render() {
         if (this.props.trip) {
             return (
@@ -53,6 +58,7 @@ class CalendarContainer extends Component {
                                 />
                                 <EventDetailsContainer
                                     event={this.state.selectedEvent}
+                                    editMode={this.onEditEvent}
                                 />
                             </div>
 

@@ -20,7 +20,7 @@ class LoginContainer extends Component {
             loginResponseTransformer
         );
 
-        this.props.history.push('/');
+        this.props.history.push('/trips');
     };
 
     onChange = event => {
