@@ -1,9 +1,13 @@
+import moment from 'moment';
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { eventCreated, tripsFetched } from '../../actions';
+import { getData, postData } from '../../actions/dispatchHandler';
+import { TRIPS_PATH } from '../../constants';
 import EventForm from './EventForm';
-import moment from 'moment';
-import { timeout } from 'q';
-export default class EventEditor extends Component {
+
+class EventEditor extends Component {
     state = {
         title: '',
         destination: '',
@@ -19,22 +23,30 @@ export default class EventEditor extends Component {
         this.setState({
             [event.target.name]: event.target.value,
         });
-        console.log(this.state);
     };
 
     onSubmit = event => {
         event.preventDefault();
-        const date = moment(this.props.slot.date).format('YYYY-MM-DD');
-        console.log(date);
+        const date = moment(this.props.slot.start).format('YYYY-MM-DD');
+
         const startsAt = moment(date + ' ' + this.state.startsAt).format(
-            'YYYY-MMMM-DDDD HH:mm:ss'
+            'YYYY-MM-DD HH:mm:ss'
         );
         const endsAt = moment(date + ' ' + this.state.endsAt).format(
-            'YYYY-MMMM-DDDD HH:mm:ss'
+            'YYYY-MM-DD HH:mm:ss'
         );
-        const events = { ...this.state, startsAt, endsAt };
-        console.log(events);
+        const updatedEvent = { ...this.state, startsAt, endsAt };
+
+        event.preventDefault();
+        this.props
+            .postData(
+                `${TRIPS_PATH}/${this.props.trip.id}/events`,
+                eventCreated,
+                updatedEvent
+            )
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
     };
+
     render() {
         return (
             <Modal
@@ -66,3 +78,6 @@ export default class EventEditor extends Component {
         );
     }
 }
+const mapStateToProps = state => ({ user: state.user });
+
+export default connect(mapStateToProps, { getData, postData })(EventEditor);

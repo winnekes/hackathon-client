@@ -12,37 +12,23 @@ class CalendarContainer extends Component {
         eventEditorMode: false,
         selectedSlot: null,
     };
-    onNavigate = (a, b, c) => {
-        console.log(a, b, c);
-    };
+
     onSelectEvent = event => {
         console.log(event);
         this.setState({ selectedEvent: event });
     };
 
-    onSelectSlot = slot => {
-        this.setState({ eventEditorMode: true, selectedSlot: slot });
+    onSelectSlot = async slot => {
+        await this.setState({ eventEditorMode: true });
+        await this.setState({ selectedSlot: slot });
     };
-
-    /*     onDeleteModel = id => {
-        this.props
-            .deleteData(SHIFT_MODELS_PATH, id, shiftModelDeleted)
-            .then(() =>
-                this.props.getData(SHIFT_MODELS_PATH, shiftModelsFetched)
-            );
-    };
-    onDeleteEntry = id => {
-        this.props
-            .deleteData(SHIFT_ENTRIES_PATH, id, shiftEntryDeleted)
-            .then(() =>
-                this.props.getData(SHIFT_ENTRIES_PATH, shiftEntriesFetched)
-            )
-            .then(() => this.setState({ selectedEvent: null }));
-    }; */
 
     componentDidMount = () => {
         if (this.props.trip) {
-            this.setState({ selectedDate: this.props.trip.startsAt });
+            this.setState({
+                selectedDate: this.props.trip.startsAt,
+                selectedSlot: null,
+            });
         }
     };
     render() {
@@ -63,13 +49,18 @@ class CalendarContainer extends Component {
                                     }}
                                 />
                             </div>
-                            <EventEditor
-                                show={this.state.eventEditorMode}
-                                onHide={() =>
-                                    this.setState({ eventEditorMode: false })
-                                }
-                                slot={this.state.selectedSlot}
-                            />
+                            {this.state.selectedSlot && (
+                                <EventEditor
+                                    show={this.state.eventEditorMode}
+                                    onHide={() =>
+                                        this.setState({
+                                            eventEditorMode: false,
+                                        })
+                                    }
+                                    slot={this.state.selectedSlot}
+                                    trip={this.props.trip}
+                                />
+                            )}
                         </>
                     )}
                 </>
