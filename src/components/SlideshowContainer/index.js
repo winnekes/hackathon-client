@@ -45,8 +45,13 @@ class SlideshowContainer extends Component {
                             <ImageGallery
                                 items={slides}
                                 onSlide={this.onSlide}
+                                showThumbnails={false}
+                                showFullscreenButton={false}
+                                showPlayButton={false}
+                                autoPlay
                             />
-                            >
+                            {this.slides &&
+                                this.slides[this.state.newSlide].note}
                         </div>
 
                         <div
