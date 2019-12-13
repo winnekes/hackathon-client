@@ -8,7 +8,18 @@ export default function Navigation(props) {
     return (
         <Navbar className="main-navigation" bg="light" expand="lg">
             <LinkContainer to="/trips">
-                <Navbar.Brand>travelin</Navbar.Brand>
+                <Navbar.Brand>
+                    <img
+                        alt=""
+                        src="https://d29fhpw069ctt2.cloudfront.net/icon/image/120281/preview.svg"
+                        style={{
+                            height: '40px',
+                            width: 'auto',
+                            marginRight: '20px',
+                        }}
+                    />
+                    travelin
+                </Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse

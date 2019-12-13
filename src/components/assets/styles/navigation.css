@@ -3,9 +3,7 @@
 
 }
 
-.main-navigation .navbar-brand {
-    font-family: 'Solway', serif;
-}
+.main-navigation .navbar-brand {}
 
 .main-navigation .nav-item {
     margin: 0 20px;

@@ -5,6 +5,7 @@
 .calendar-wrap {
     display: flex;
     flex-direction: row;
+    margin-bottom: 50px;
 }
 
 .calendar-wrap>div {
@@ -19,10 +20,8 @@
 }
 
 .calendar .rbc-toolbar-label {
-    font-family: 'Solway', serif;
     font-weight: bold;
-    font-size: 18px;
-    color: #be0939;
+    font-size: 20px;
 }
 
 .calendar .rbc-month-view {

@@ -64,12 +64,12 @@ export default function TripForm(props) {
                 </Form.Group>
 
                 <Form.Group>
-                    <Form.Label>Upload an image:</Form.Label>
+                    <Form.Label>Do you have an image of the place?</Form.Label>
                     <Form.Control
                         name="image"
                         value={props.values.image}
-                        type="file"
-                        onChange={props.onImageSelectHandler}
+                        type="text"
+                        onChange={props.onChange}
                     />
                 </Form.Group>
                 <Button

@@ -12,6 +12,7 @@ import TripDetails from './TripDetails';
 import EventDetailsContainer from '../EventDetailsContainer';
 import { eventDeleted, tripsFetched, tripEdited } from '../../actions';
 import { TRIPS_PATH } from '../../constants';
+import { FaPlus } from 'react-icons/fa';
 class CalendarContainer extends Component {
     state = {
         selectedEvent: null,
@@ -62,6 +63,32 @@ class CalendarContainer extends Component {
             return (
                 <>
                     <h1>Your trip!</h1>
+                    <p>
+                        the folks who are going with you:{' '}
+                        {this.props.trip &&
+                            this.props.trip.members.map((member, index) => {
+                                if (
+                                    index ===
+                                    this.props.trip.members.length - 1
+                                ) {
+                                    return (
+                                        <>
+                                            {' '}
+                                            and{' '}
+                                            <span key={index}>
+                                                {member.username}
+                                            </span>
+                                        </>
+                                    );
+                                }
+                                return (
+                                    <>
+                                        <span>{member.username}</span>,
+                                    </>
+                                );
+                            })}{' '}
+                        <FaPlus />
+                    </p>
                     <TripDetails
                         trip={this.props.trip}
                         onTogglePrivacy={this.onTogglePrivacy}

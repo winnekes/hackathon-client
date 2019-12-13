@@ -4,7 +4,14 @@ import Moment from 'react-moment';
 import '../assets/styles/trips.css';
 import MemberEditor from './MemberEditor';
 
-import { FaEdit, FaTrash, FaEye, FaEyeSlash, FaPlay } from 'react-icons/fa';
+import {
+    FaEdit,
+    FaTrash,
+    FaEye,
+    FaEyeSlash,
+    FaPlay,
+    FaPlus,
+} from 'react-icons/fa';
 
 export default function TripDetails(props) {
     const [modalShow, setModalShow] = React.useState(false);
@@ -12,12 +19,17 @@ export default function TripDetails(props) {
     return (
         <Jumbotron
             style={{
-                background: `url(${trip.image}) no-repeat center center`,
+                background: `url(${trip.image}) `,
             }}
         >
             <div className="jumbotron-content">
-                <h2>
-                    {trip.title} <FaEdit />
+                <h2>{trip.title}</h2>
+                <h4>
+                    from <Moment format="D/M/YY">{trip.startsAt}</Moment> to{' '}
+                    <Moment format="D/M/YY">{trip.endsAt}</Moment>
+                </h4>
+                <nav>
+                    <FaEdit />
                     <FaTrash />{' '}
                     {trip.private ? (
                         <FaEyeSlash
@@ -43,36 +55,11 @@ export default function TripDetails(props) {
                                     )
                                 }
                             />
+                            <FaPlus onClick={() => setModalShow(true)} />
                         </>
                     )}
-                </h2>
-                <h4>
-                    from <Moment format="D/M/YY">{trip.startsAt}</Moment> to{' '}
-                    <Moment format="D/M/YY">{trip.endsAt}</Moment>
-                </h4>
+                </nav>
                 <p>{trip.note}</p>
-                <p>
-                    the folks who are going with you:{' '}
-                    {trip.members.map((member, index) => {
-                        if (index === trip.members.length - 1) {
-                            return (
-                                <>
-                                    {' '}
-                                    and{' '}
-                                    <span key={index}>{member.username}</span>
-                                </>
-                            );
-                        }
-                        return (
-                            <>
-                                <span>{member.username}</span>,
-                            </>
-                        );
-                    })}
-                </p>
-                <Button onClick={() => setModalShow(true)}>
-                    add a traveler
-                </Button>
 
                 <MemberEditor
                     show={modalShow}

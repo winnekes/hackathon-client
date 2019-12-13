@@ -8,6 +8,7 @@
 
 .jumbotron-content {
     background-color: rgba(199, 199, 199, 0.329);
+    background-attachment: local !important;
     padding: 50px;
     text-align: center;
 }
@@ -28,4 +29,12 @@
 
 .trips-container h2 {
     text-shadow: 2px 2px white;
+}
+
+.jumbotron-content h4 {
+    color: darkred;
+}
+
+.jumbotron-content nav svg {
+    margin: 0 10px;
 }
