@@ -30,3 +30,16 @@
 .home nav .btn {
     margin: 0 20px;
 }
+
+.home p {
+    font-family: 'Permanent Marker';
+    font-size: 25px;
+}
+
+.home i {
+    display: block;
+    margin-top: 20px;
+
+    font-family: 'Permanent Marker';
+    color: #329191;
+}

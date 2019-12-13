@@ -14,7 +14,7 @@ export default class HomeContainer extends Component {
                 <p>
                     For the ones struck with wanderlust, and for the dreamers
                     <br />
-                    just keep Travelin'
+                    <i>just keep Travelin'</i>
                 </p>
                 <nav>
                     <Link to="/login" className="btn btn-primary">
