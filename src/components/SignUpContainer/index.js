@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SignUp from './SignUp';
-import { Alert } from 'react-bootstrap';
+
 import { USERS_PATH } from '../../constants';
 import { postData } from '../../actions/dispatchHandler';
 
@@ -44,16 +44,12 @@ class SignUpContainer extends Component {
 
     render() {
         return (
-            <>
-                {this.state.error && (
-                    <Alert variant="primary">{this.state.error}</Alert>
-                )}
-                <SignUp
-                    onSubmit={this.onSubmit}
-                    onChange={this.onChange}
-                    values={this.state}
-                />
-            </>
+            <SignUp
+                onSubmit={this.onSubmit}
+                onChange={this.onChange}
+                values={this.state}
+                error={this.state.error}
+            />
         );
     }
 }

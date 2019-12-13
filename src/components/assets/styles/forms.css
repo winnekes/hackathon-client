@@ -31,3 +31,7 @@
     border: 1px dashed grey;
     max-width: 300px;
 }
+
+.main-form .alert {
+    margin: 30px 0;
+}
