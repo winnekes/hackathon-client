@@ -97,14 +97,17 @@ export default function EventDetails(props) {
                                         <img
                                             key={image.id}
                                             className="thumbnail"
-                                            alt=""
+                                            alt={image.note}
                                             src={`${BASE_URL}${image.url}`}
+                                            onClick={() => {
+                                                props.onSelectImage(image);
+                                            }}
                                         />
                                     </div>
                                 ))}
                             </div>
                         </Card.Text>
-                        <Button onClick={props.imageEditMode}>
+                        <Button onClick={() => props.imageEditMode('add')}>
                             Add images
                         </Button>
                     </Card.Body>

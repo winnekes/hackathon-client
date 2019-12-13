@@ -48,14 +48,31 @@ class ImageEditor extends Component {
 
     onSubmit = event => {
         event.preventDefault();
+        let fileName = this.state.fileName;
+        if (this.props.selectedImage) {
+            fileName = this.props.selectedImage.id;
+        }
         this.props
-            .putData(`images`, this.state.fileName, imageEdited, {
+            .putData(`images`, fileName, imageEdited, {
                 note: this.state.note,
             })
-            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
+            .then(() => {
+                this.props.getData(TRIPS_PATH, tripsFetched);
+                this.setState({
+                    uploading: false,
+                    image: null,
+                    fileName: '',
+                    note: '',
+                });
+            });
     };
 
+    componentWillReceiveProps = () => {
+        if (this.state.selectedImage)
+            this.setState({ note: this.state.selectedImage.note });
+    };
     render() {
+        console.log(this.props.selectedImage);
         return (
             <Modal
                 show={this.props.show}
@@ -70,6 +87,8 @@ class ImageEditor extends Component {
                             <h1>
                                 {this.state.image
                                     ? 'Notes and thoughts about this image'
+                                    : this.props.selectedImage
+                                    ? "Edit your picture's note"
                                     : 'Add a lovely picture!'}
                             </h1>
                         </Modal.Title>
@@ -80,6 +99,8 @@ class ImageEditor extends Component {
                             src={
                                 this.state.image
                                     ? this.state.image
+                                    : this.props.selectedImage
+                                    ? `${BASE_URL}${this.props.selectedImage.url}`
                                     : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder.png'
                             }
                             alt=""
@@ -91,6 +112,14 @@ class ImageEditor extends Component {
                                 onSubmit={this.onSubmit}
                                 onChange={this.onChange}
                                 onHide={this.props.onHide}
+                            />
+                        ) : this.props.selectedImage ? (
+                            <ImageForm
+                                values={this.state}
+                                onSubmit={this.onSubmit}
+                                onChange={this.onChange}
+                                onHide={this.props.onHide}
+                                selectedImage={this.props.selectedImage}
                             />
                         ) : (
                             <ImageUpload

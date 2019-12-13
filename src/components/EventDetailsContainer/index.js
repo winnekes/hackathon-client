@@ -14,10 +14,19 @@ import ImageEditor from './ImageEditor';
 class EventDetailsContainer extends Component {
     state = {
         imageEditorMode: false,
+        selectedImage: null,
     };
 
-    onImageEditMode = () => {
+    onSelectImage = image => {
+        this.setState({ selectedImage: image });
+        this.onImageEditMode();
+    };
+
+    onImageEditMode = (mode = null) => {
         this.setState({ imageEditorMode: true });
+        if (mode === 'add') {
+            this.setState({ selectedImage: null });
+        }
     };
 
     onTogglePrivacy = (fileName, newPrivateState) => {
@@ -45,6 +54,7 @@ class EventDetailsContainer extends Component {
                     imageEditMode={this.onImageEditMode}
                     onTogglePrivacy={this.onTogglePrivacy}
                     onDeleteImage={this.onDeleteImage}
+                    onSelectImage={this.onSelectImage}
                 />
 
                 <ImageEditor
@@ -55,6 +65,7 @@ class EventDetailsContainer extends Component {
                         })
                     }
                     event={this.props.event}
+                    selectedImage={this.state.selectedImage}
                 />
             </>
         );

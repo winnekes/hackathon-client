@@ -1,10 +1,15 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
 import '../assets/styles/forms.css';
 
 export default function ImageForm(props) {
     return (
         <div className="main-form">
+            {props.selectedImage && props.selectedImage.note && (
+                <Alert variant="success">
+                    Previous note: {props.selectedImage.note}
+                </Alert>
+            )}
             <Form onSubmit={props.onSubmit}>
                 <Form.Group>
                     <Form.Label></Form.Label>
