@@ -32,7 +32,7 @@ export default function TripList(props) {
                             <p>
                                 <Link
                                     to={`/trips/${trip.id}`}
-                                    className="btn btn-primary"
+                                    className="btn btn-danger"
                                 >
                                     View your trip
                                 </Link>
@@ -41,7 +41,7 @@ export default function TripList(props) {
                     </div>
                 </Jumbotron>
             ))}
-            <Button variant="" onClick={() => setModalShow(true)}>
+            <Button variant="danger" onClick={() => setModalShow(true)}>
                 Create a new trip
             </Button>
             <TripEditor show={modalShow} onHide={() => setModalShow(false)} />

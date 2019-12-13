@@ -48,7 +48,7 @@ class SlideshowContainer extends Component {
                                 showThumbnails={false}
                                 showFullscreenButton={false}
                                 disableArrowKeys={true}
-                                slideInterval={5000}
+                                slideInterval={7000}
                                 autoPlay
                                 showNav={false}
                             />
