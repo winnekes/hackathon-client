@@ -36,8 +36,11 @@ export default function Login(props) {
                         <Form.Text className="text-muted">
                             <Link to="/signup">Don't have an account yet?</Link>
                         </Form.Text>
+                        <Form.Text className="text-muted">
+                            <Link to="/">Back home</Link>
+                        </Form.Text>
                     </Form.Group>
-                    <Button variant="secondary" type="submit">
+                    <Button variant="primary" type="submit">
                         Login
                     </Button>
                 </Form>

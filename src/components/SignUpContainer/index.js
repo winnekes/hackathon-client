@@ -19,6 +19,7 @@ class SignUpContainer extends Component {
         event.preventDefault();
         this.props.postData(USERS_PATH, null, this.state).then(response => {
             if (response) {
+                this.setState({ error: '' });
                 this.props.history.push('/login');
             } else {
                 this.setState({
@@ -27,13 +28,6 @@ class SignUpContainer extends Component {
                 });
             }
         });
-
-        this.setState({
-            email: '',
-            username: '',
-            password: '',
-            profileUrl: '',
-        });
     };
 
     onChange = event => {
@@ -41,7 +35,15 @@ class SignUpContainer extends Component {
             [event.target.name]: event.target.value,
         });
     };
-
+    componentDidMount = () => {
+        this.setState({
+            email: '',
+            username: '',
+            password: '',
+            profileUrl: '',
+            error: '',
+        });
+    };
     render() {
         return (
             <SignUp
