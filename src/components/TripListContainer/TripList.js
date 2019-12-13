@@ -32,7 +32,7 @@ export default function TripList(props) {
                                 to={`/trips/${trip.id}`}
                                 className="btn btn-primary"
                             >
-                                View your trip calendar
+                                View your trip
                             </Link>
                         </p>
                     </div>

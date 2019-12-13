@@ -7,6 +7,25 @@
 }
 
 .jumbotron-content {
-    background-color: rgba(255, 255, 255, 0.521);
+    background-color: rgba(199, 199, 199, 0.329);
     padding: 50px;
+    text-align: center;
+}
+
+.jumbotron-content .btn {
+    margin-top: 30px;
+}
+
+.trips-container {
+    align-content: center;
+    text-align: center;
+}
+
+.trips-container h1 {
+    margin-bottom: 50px;
+    text-shadow: 2px 2px white;
+}
+
+.trips-container h2 {
+    text-shadow: 2px 2px white;
 }

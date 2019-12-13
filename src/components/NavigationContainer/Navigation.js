@@ -19,9 +19,7 @@ export default function Navigation(props) {
                     <LinkContainer to="/trips">
                         <Nav.Item>Your trips</Nav.Item>
                     </LinkContainer>
-                    <LinkContainer to="/profile">
-                        <Nav.Item>Profile</Nav.Item>
-                    </LinkContainer>
+
                     <LinkContainer to="/" onClick={() => props.logout()}>
                         <Nav.Item>Logout</Nav.Item>
                     </LinkContainer>
