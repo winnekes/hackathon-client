@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import SignUp from './SignUp';
-
+import { Alert } from 'react-bootstrap';
 import { USERS_PATH } from '../../constants';
 import { postData } from '../../actions/dispatchHandler';
 
@@ -12,11 +12,21 @@ class SignUpContainer extends Component {
         username: '',
         password: '',
         profileUrl: '',
+        error: '',
     };
 
     onSubmit = event => {
         event.preventDefault();
-        this.props.postData(USERS_PATH, null, this.state);
+        this.props.postData(USERS_PATH, null, this.state).then(response => {
+            if (response) {
+                this.props.history.push('/login');
+            } else {
+                this.setState({
+                    error:
+                        'Are you sure you put in your information correctly? Please try again',
+                });
+            }
+        });
 
         this.setState({
             email: '',
@@ -34,11 +44,16 @@ class SignUpContainer extends Component {
 
     render() {
         return (
-            <SignUp
-                onSubmit={this.onSubmit}
-                onChange={this.onChange}
-                values={this.state}
-            />
+            <>
+                {this.state.error && (
+                    <Alert variant="primary">{this.state.error}</Alert>
+                )}
+                <SignUp
+                    onSubmit={this.onSubmit}
+                    onChange={this.onChange}
+                    values={this.state}
+                />
+            </>
         );
     }
 }
