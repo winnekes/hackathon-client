@@ -19,7 +19,7 @@ export default function TripDetails(props) {
     return (
         <Jumbotron
             style={{
-                background: `url(${trip.image}) `,
+                background: `url(${trip.image}) no-repeat center center fixed`,
             }}
         >
             <div className="jumbotron-content">
