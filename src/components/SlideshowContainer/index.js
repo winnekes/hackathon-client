@@ -47,11 +47,22 @@ class SlideshowContainer extends Component {
                                 onSlide={this.onSlide}
                                 showThumbnails={false}
                                 showFullscreenButton={false}
-                                showPlayButton={false}
+                                disableArrowKeys={true}
+                                slideInterval={5000}
                                 autoPlay
+                                showNav={false}
                             />
-                            {this.slides &&
-                                this.slides[this.state.newSlide].note}
+
+                            {slides && (
+                                <div className="image-text">
+                                    <h3>{slides[this.state.newSlide].title}</h3>
+                                    <h4>
+                                        <Moment format="DD/MM/YY HH:mm aa">
+                                            {slides[this.state.newSlide].date}
+                                        </Moment>
+                                    </h4>
+                                </div>
+                            )}
                         </div>
 
                         <div
