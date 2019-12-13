@@ -18,6 +18,7 @@ import SignUpContainer from './components/SignUpContainer';
 import { USERS_PATH } from './constants';
 import TripListContainer from './components/TripListContainer';
 import MapContainer from './components/MapContainer';
+import SlideshowContainer from './components/SlideshowContainer';
 
 class App extends Component {
     lsData = lscache.get('travelin-data');
@@ -62,6 +63,11 @@ class App extends Component {
                         exact
                         path="/trips/:id/map"
                         component={MapContainer}
+                    />
+                    <Route
+                        exact
+                        path="/slideshow/:id"
+                        component={SlideshowContainer}
                     />
                 </>
             );

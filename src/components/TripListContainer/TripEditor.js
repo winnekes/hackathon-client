@@ -14,6 +14,7 @@ class TripEditor extends Component {
         note: '',
         startsAt: '',
         endsAt: '',
+        private: false,
     };
 
     onSubmit = event => {
