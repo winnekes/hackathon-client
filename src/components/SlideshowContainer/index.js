@@ -57,7 +57,7 @@ class SlideshowContainer extends Component {
                                 <div className="image-text">
                                     <h3>{slides[this.state.newSlide].title}</h3>
                                     <h4>
-                                        <Moment format="DD/MM/YY HH:mm aa">
+                                        <Moment format="DD/MM/YY HH:mm a">
                                             {slides[this.state.newSlide].date}
                                         </Moment>
                                     </h4>
@@ -90,12 +90,7 @@ class SlideshowContainer extends Component {
                                     fullscreenControl: false,
                                     mapTypeId: 'hybrid',
                                 }}
-                            >
-                                {/*              <FaCameraRetro
-                                    lat={slides[this.state.newSlide].lat}
-                                    lng={slides[this.state.newSlide].lng}
-                                /> */}
-                            </GoogleMapReact>
+                            ></GoogleMapReact>
                         </div>
                     </div>
                 )}

@@ -4,11 +4,12 @@
     -o-background-size: cover;
     background-size: cover;
     padding: 0;
+    overflow: hidden;
 }
 
 .jumbotron-content {
     background-color: rgba(199, 199, 199, 0.329);
-    background-attachment: local !important;
+    background-attachment: unset;
     padding: 50px;
     text-align: center;
 }
