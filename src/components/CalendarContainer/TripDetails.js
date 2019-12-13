@@ -23,23 +23,18 @@ export default function TripDetails(props) {
             }}
         >
             <div className="jumbotron-content">
-                <h2>{trip.title}</h2>
-                <h4>
-                    from <Moment format="D/M/YY">{trip.startsAt}</Moment> to{' '}
-                    <Moment format="D/M/YY">{trip.endsAt}</Moment>
-                </h4>
-                <nav>
-                    <FaEdit />
-                    <FaTrash />{' '}
-                    {trip.private ? (
-                        <FaEyeSlash
-                            onClick={() =>
-                                props.onTogglePrivacy(trip.id, !trip.private)
-                            }
-                        />
-                    ) : (
-                        <>
-                            <FaEye
+                <header>
+                    <h2>{trip.title}</h2>
+                    <h4>
+                        from <Moment format="D/M/YY">{trip.startsAt}</Moment> to{' '}
+                        <Moment format="D/M/YY">{trip.endsAt}</Moment>
+                    </h4>
+                    <nav>
+                        <FaEdit className="icon" />
+                        <FaTrash className="icon" />{' '}
+                        {trip.private ? (
+                            <FaEyeSlash
+                                className="icon"
                                 onClick={() =>
                                     props.onTogglePrivacy(
                                         trip.id,
@@ -47,19 +42,34 @@ export default function TripDetails(props) {
                                     )
                                 }
                             />
-                            <FaPlay
-                                onClick={() =>
-                                    window.open(
-                                        `/slideshow/${trip.id}`,
-                                        '_blank'
-                                    )
-                                }
-                            />
-                            <FaPlus onClick={() => setModalShow(true)} />
-                        </>
-                    )}
-                </nav>
-                <p>{trip.note}</p>
+                        ) : (
+                            <>
+                                <FaEye
+                                    onClick={() =>
+                                        props.onTogglePrivacy(
+                                            trip.id,
+                                            !trip.private
+                                        )
+                                    }
+                                />
+                                <FaPlay
+                                    className="icon"
+                                    onClick={() =>
+                                        window.open(
+                                            `/slideshow/${trip.id}`,
+                                            '_blank'
+                                        )
+                                    }
+                                />
+                                <FaPlus
+                                    className="icon"
+                                    onClick={() => setModalShow(true)}
+                                />
+                            </>
+                        )}
+                    </nav>
+                    <p>Note: {trip.note}</p>
+                </header>
 
                 <MemberEditor
                     show={modalShow}

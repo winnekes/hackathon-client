@@ -16,29 +16,32 @@ export default function TripList(props) {
                 <Jumbotron
                     key={trip.id}
                     style={{
-                        background: `url(${trip.image}) no-repeat center center fixed`,
+                        background: `url(${trip.image}) no-repeat center `,
                     }}
                 >
                     <div className="jumbotron-content">
-                        <h2>{trip.title}</h2>
-                        <h4>
-                            from{' '}
-                            <Moment format="D/M/YY">{trip.startsAt}</Moment> to{' '}
-                            <Moment format="D/M/YY">{trip.endsAt}</Moment>
-                        </h4>
-                        <p>{trip.note}</p>
-                        <p>
-                            <Link
-                                to={`/trips/${trip.id}`}
-                                className="btn btn-primary"
-                            >
-                                View your trip
-                            </Link>
-                        </p>
+                        <header>
+                            <h2>{trip.title}</h2>
+                            <h4>
+                                from{' '}
+                                <Moment format="D/M/YY">{trip.startsAt}</Moment>{' '}
+                                to{' '}
+                                <Moment format="D/M/YY">{trip.endsAt}</Moment>
+                            </h4>
+                            <p>{trip.note}</p>
+                            <p>
+                                <Link
+                                    to={`/trips/${trip.id}`}
+                                    className="btn btn-primary"
+                                >
+                                    View your trip
+                                </Link>
+                            </p>
+                        </header>
                     </div>
                 </Jumbotron>
             ))}
-            <Button onClick={() => setModalShow(true)}>
+            <Button variant="" onClick={() => setModalShow(true)}>
                 Create a new trip
             </Button>
             <TripEditor show={modalShow} onHide={() => setModalShow(false)} />

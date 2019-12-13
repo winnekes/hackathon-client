@@ -3,15 +3,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    padding: 0;
-    overflow: hidden;
-}
-
-.jumbotron-content {
-    background-color: rgba(199, 199, 199, 0.329);
-    background-attachment: unset;
     padding: 50px;
-    text-align: center;
 }
 
 .jumbotron-content .btn {
@@ -24,18 +16,23 @@
 }
 
 .trips-container h1 {
-    margin-bottom: 50px;
-    text-shadow: 2px 2px white;
+    margin-bottom: 10px;
+    /*  text-shadow: 2px 2px white; */
 }
 
-.trips-container h2 {
-    text-shadow: 2px 2px white;
+
+.jumbotron-content .icon {
+    margin: 0 11px;
 }
 
-.jumbotron-content h4 {
-    color: darkred;
+.jumbotron-content header {
+    background: black;
+    opacity: 0.7;
+    color: white !important;
+    padding: 10px;
+    border-radius: 20px;
 }
 
-.jumbotron-content nav svg {
-    margin: 0 10px;
+jumbotron-content header p {
+    margin-top: 10px;
 }

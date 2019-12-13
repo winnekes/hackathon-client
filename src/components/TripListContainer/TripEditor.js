@@ -68,7 +68,9 @@ class TripEditor extends Component {
                 </>
 
                 <Modal.Footer>
-                    <Button onClick={this.props.onHide}>Close</Button>
+                    <Button variant="danger" onClick={this.props.onHide}>
+                        Close
+                    </Button>
                 </Modal.Footer>
             </Modal>
         );
