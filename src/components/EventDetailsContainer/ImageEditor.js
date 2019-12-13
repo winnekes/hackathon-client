@@ -1,19 +1,21 @@
-import moment from 'moment';
 import React, { Component } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { eventCreated, eventEdited, tripsFetched } from '../../actions';
+import { imageUploaded, imageEdited, tripsFetched } from '../../actions';
 import { getData, postData, putData } from '../../actions/dispatchHandler';
-import { TRIPS_PATH } from '../../constants';
-import EventForm from './ImageForm';
+import ImageUpload from './ImageUpload';
+import { BASE_URL, TRIPS_PATH } from '../../constants';
+import ImageForm from './ImageForm';
 
 class ImageEditor extends Component {
     state = {
         uploading: false,
-        images: [],
+        image: null,
+        fileName: '',
+        note: '',
     };
 
-    onChange = e => {
+    onImageChange = e => {
         const files = Array.from(e.target.files);
         this.setState({ uploading: true });
 
@@ -26,12 +28,31 @@ class ImageEditor extends Component {
         this.props
             .postData(`images/${this.props.event.id}`, null, formData)
 
-            .then(response => console.log(response));
+            .then(response => {
+                console.log('Got response from image upload', response);
+                if (response && response.url) {
+                    this.setState({
+                        image: `${BASE_URL}${response.url}`,
+                        fileName: response.fileName,
+                    });
+                }
+            });
+        console.log(this.state.image);
+    };
+
+    onChange = event => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
     };
 
     onSubmit = event => {
         event.preventDefault();
-        this.props.postData('/images');
+        this.props
+            .putData(`images`, this.state.fileName, imageEdited, {
+                note: this.state.note,
+            })
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
     };
 
     render() {
@@ -46,16 +67,39 @@ class ImageEditor extends Component {
                 <>
                     <Modal.Header closeButton>
                         <Modal.Title id="contained-modal-title-vcenter">
-                            <h1>Add some lovely pictures!</h1>
+                            <h1>
+                                {this.state.image
+                                    ? 'Notes and thoughts about this image'
+                                    : 'Add a lovely picture!'}
+                            </h1>
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EventForm
-                            values={this.state}
-                            onSubmit={this.onSubmit}
-                            onChange={this.onChange}
-                            onHide={this.props.onHide}
+                        <img
+                            className="image-preview"
+                            src={
+                                this.state.image
+                                    ? this.state.image
+                                    : 'http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder.png'
+                            }
+                            alt=""
                         />
+
+                        {this.state.image ? (
+                            <ImageForm
+                                values={this.state}
+                                onSubmit={this.onSubmit}
+                                onChange={this.onChange}
+                                onHide={this.props.onHide}
+                            />
+                        ) : (
+                            <ImageUpload
+                                values={this.state}
+                                onSubmit={this.onSubmit}
+                                onImageChange={this.onImageChange}
+                                onHide={this.props.onHide}
+                            />
+                        )}
                     </Modal.Body>
                 </>
 
@@ -66,8 +110,5 @@ class ImageEditor extends Component {
         );
     }
 }
-const mapStateToProps = state => ({ user: state.user });
 
-export default connect(mapStateToProps, { getData, postData, putData })(
-    ImageEditor
-);
+export default connect(null, { getData, postData, putData })(ImageEditor);

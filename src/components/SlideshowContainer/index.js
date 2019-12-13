@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { getData } from '../../actions/dispatchHandler';
 import { TRIPS_PATH, BASE_URL } from '../../constants';
 import { slidesFetched } from '../../actions';
-import { FaCameraRetro } from 'react-icons/fa';
 import ImageGallery from 'react-image-gallery';
 import GoogleMapReact from 'google-map-react';
 import { connect } from 'react-redux';
@@ -15,19 +14,11 @@ class SlideshowContainer extends Component {
         zoom: 14,
     };
 
-    zoomOutProperties = {
-        duration: 5000,
-        transitionDuration: 500,
-        infinite: true,
-        indicators: true,
-        scale: -0.4,
-        arrows: true,
-    };
-
     onSlide = newSlide => {
         this.setState({ newSlide });
         console.log(newSlide);
     };
+
     componentDidMount = () => {
         this.props.getData(
             `${TRIPS_PATH}/${this.props.match.params.id}/slides`,

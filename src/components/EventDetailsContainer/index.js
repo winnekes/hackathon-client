@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { imageEdited, tripsFetched, imageDeleted } from '../../actions';
+import {
+    deleteData,
+    getData,
+    postData,
+    putData,
+} from '../../actions/dispatchHandler';
+import { TRIPS_PATH } from '../../constants';
 import EventDetails from './EventDetails';
 import ImageEditor from './ImageEditor';
 
-export default class EventDetailsContainer extends Component {
+class EventDetailsContainer extends Component {
     state = {
         imageEditorMode: false,
     };
@@ -10,6 +19,22 @@ export default class EventDetailsContainer extends Component {
     onImageEditMode = () => {
         this.setState({ imageEditorMode: true });
     };
+
+    onTogglePrivacy = (fileName, newPrivateState) => {
+        this.props
+            .putData('images', fileName, imageEdited, {
+                private: newPrivateState,
+            })
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
+    };
+
+    onDeleteImage = id => {
+        this.props
+            .deleteData('images', id, imageDeleted)
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
+        this.setState({ selectedEvent: null });
+    };
+
     render() {
         return (
             <>
@@ -18,6 +43,8 @@ export default class EventDetailsContainer extends Component {
                     editMode={this.props.editMode}
                     deleteEvent={this.props.deleteEvent}
                     imageEditMode={this.onImageEditMode}
+                    onTogglePrivacy={this.onTogglePrivacy}
+                    onDeleteImage={this.onDeleteImage}
                 />
 
                 <ImageEditor
@@ -33,3 +60,10 @@ export default class EventDetailsContainer extends Component {
         );
     }
 }
+
+export default connect(null, {
+    getData,
+    deleteData,
+    postData,
+    putData,
+})(EventDetailsContainer);

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Card, Button } from 'react-bootstrap';
-import Moment from 'react-moment';
 import moment from 'moment';
+import React from 'react';
+import { Button, Card } from 'react-bootstrap';
+import { FaEdit, FaEye, FaEyeSlash, FaTrash } from 'react-icons/fa';
+import Moment from 'react-moment';
 import { BASE_URL } from '../../constants';
-import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import '../assets/styles/events.css';
 
 export default function EventDetails(props) {
@@ -70,8 +70,30 @@ export default function EventDetails(props) {
                                 {' '}
                                 {event.images.map(image => (
                                     <div>
-                                        <FaTrash />
-                                        <FaEye />
+                                        <FaTrash
+                                            onClick={() =>
+                                                props.onDeleteImage(image.id)
+                                            }
+                                        />
+                                        {image.private ? (
+                                            <FaEyeSlash
+                                                onClick={() =>
+                                                    props.onTogglePrivacy(
+                                                        image.id,
+                                                        !image.private
+                                                    )
+                                                }
+                                            />
+                                        ) : (
+                                            <FaEye
+                                                onClick={() =>
+                                                    props.onTogglePrivacy(
+                                                        image.id,
+                                                        !image.private
+                                                    )
+                                                }
+                                            />
+                                        )}
                                         <img
                                             key={image.id}
                                             className="thumbnail"

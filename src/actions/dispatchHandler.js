@@ -82,6 +82,8 @@ const call = (
             if (actionCreator) {
                 dispatch(actionCreator(actionData));
             }
+            console.log('callResult', actionData);
+            return actionData;
         })
         .catch(console.error);
 };

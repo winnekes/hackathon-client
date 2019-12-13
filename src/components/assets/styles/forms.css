@@ -1,6 +1,7 @@
 .main-form {
     margin: 0 auto;
     max-width: 80%;
+    text-align: center;
 }
 
 .main-form form {
@@ -20,4 +21,13 @@
 
 .main-form .btn {
     font-weight: bold;
+}
+
+.image-preview {
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 7px;
+    border: 1px dashed grey;
+    max-width: 300px;
 }

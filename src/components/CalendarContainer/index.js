@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteData, getData, postData } from '../../actions/dispatchHandler';
+import {
+    deleteData,
+    getData,
+    postData,
+    putData,
+} from '../../actions/dispatchHandler';
 import Calendar from './Calendar';
 import EventEditor from './EventEditor';
 import TripDetails from './TripDetails';
 import EventDetailsContainer from '../EventDetailsContainer';
-import { eventDeleted, tripsFetched } from '../../actions';
+import { eventDeleted, tripsFetched, tripEdited } from '../../actions';
 import { TRIPS_PATH } from '../../constants';
-
 class CalendarContainer extends Component {
     state = {
         selectedEvent: null,
@@ -47,12 +51,21 @@ class CalendarContainer extends Component {
         }
     };
 
+    onTogglePrivacy = (id, newPrivateState) => {
+        this.props
+            .putData(TRIPS_PATH, id, tripEdited, { private: newPrivateState })
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
+    };
+
     render() {
         if (this.props.trip) {
             return (
                 <>
                     <h1>Your trip!</h1>
-                    <TripDetails trip={this.props.trip} />
+                    <TripDetails
+                        trip={this.props.trip}
+                        onTogglePrivacy={this.onTogglePrivacy}
+                    />
                     {this.props.events && (
                         <>
                             <div className="calendar-wrap">
@@ -112,6 +125,9 @@ const mapStateToProps = (state, ownProps) => {
     }
     return {};
 };
-export default connect(mapStateToProps, { getData, deleteData, postData })(
-    CalendarContainer
-);
+export default connect(mapStateToProps, {
+    getData,
+    deleteData,
+    postData,
+    putData,
+})(CalendarContainer);

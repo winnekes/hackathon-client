@@ -6,13 +6,19 @@ export default function ImageForm(props) {
     return (
         <div className="main-form">
             <Form onSubmit={props.onSubmit}>
-                <input
-                    type="file"
-                    id="file"
-                    name="file"
-                    accept="image/*"
-                    onChange={props.onChange}
-                />
+                <Form.Group>
+                    <Form.Label></Form.Label>
+                    <Form.Control
+                        as="textarea"
+                        rows="2"
+                        name="note"
+                        value={props.values.note}
+                        type="text"
+                        onChange={props.onChange}
+                        placeholder={`Add a note`}
+                    />
+                </Form.Group>
+
                 <Button
                     variant="secondary"
                     type="submit"
