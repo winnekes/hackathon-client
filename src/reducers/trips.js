@@ -1,4 +1,4 @@
-import { TRIPS_FETCHED, TRIP_EDITED } from '../actions';
+import { TRIPS_FETCHED } from '../actions';
 
 export default function(state = [], action = {}) {
     switch (action.type) {

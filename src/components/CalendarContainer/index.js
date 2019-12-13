@@ -1,93 +1,133 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getData, deleteData, postData } from '../../actions/dispatchHandler';
-import { Jumbotron, Button } from 'react-bootstrap';
+import {
+    deleteData,
+    getData,
+    postData,
+    putData,
+} from '../../actions/dispatchHandler';
 import Calendar from './Calendar';
-
-import moment from 'moment';
-
+import EventEditor from './EventEditor';
+import TripDetails from './TripDetails';
+import EventDetailsContainer from '../EventDetailsContainer';
+import { eventDeleted, tripsFetched, tripEdited } from '../../actions';
+import { TRIPS_PATH } from '../../constants';
 class CalendarContainer extends Component {
     state = {
         selectedEvent: null,
-    };
-    /*    onNavigate = date => {
-        this.props.getData(
-            `${SHIFT_ENTRIES_PATH}?month=${date}`,
-            shiftEntriesFetched
-        );
-    };
-    onSelectEvent = event => {
-        console.log(event);
-        this.setState({ selectedEvent: event });
+        selectedDate: new Date(),
+        eventEditorMode: false,
+        selectedSlot: null,
     };
 
-    onSelectModel = model => {
-        this.setState({ selectedModel: model });
+    onSelectEvent = async event => {
+        await this.setState({ selectedEvent: event });
     };
 
     onSelectSlot = slot => {
-        if (this.state.selectedModel) {
-            console.log(this.state.selectedModel, slot);
+        this.setState({
+            selectedEvent: null,
+            selectedSlot: slot,
+            eventEditorMode: true,
+        });
+    };
 
-            const modifiedData = {
-                shiftModel: this.state.selectedModel.id,
-                startsAt: moment(slot.start).toLocaleString(),
-            };
+    onEditEvent = () => {
+        this.setState({ selectedSlot: null, eventEditorMode: true });
+    };
 
-            this.props
-                .postData(SHIFT_ENTRIES_PATH, shiftEntryCreated, modifiedData)
-                .then(() =>
-                    this.props.getData(SHIFT_ENTRIES_PATH, shiftEntriesFetched)
-                );
+    onDeleteEvent = id => {
+        this.props
+            .deleteData(`events`, id, eventDeleted)
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
+        this.setState({ selectedEvent: null });
+    };
+
+    componentDidMount = () => {
+        if (this.props.trip) {
+            this.setState({
+                selectedDate: this.props.trip.startsAt,
+            });
         }
     };
- */
-    /*     onDeleteModel = id => {
-        this.props
-            .deleteData(SHIFT_MODELS_PATH, id, shiftModelDeleted)
-            .then(() =>
-                this.props.getData(SHIFT_MODELS_PATH, shiftModelsFetched)
-            );
-    };
-    onDeleteEntry = id => {
-        this.props
-            .deleteData(SHIFT_ENTRIES_PATH, id, shiftEntryDeleted)
-            .then(() =>
-                this.props.getData(SHIFT_ENTRIES_PATH, shiftEntriesFetched)
-            )
-            .then(() => this.setState({ selectedEvent: null }));
-    }; */
 
-    componentDidMount = () => {};
+    onTogglePrivacy = (id, newPrivateState) => {
+        this.props
+            .putData(TRIPS_PATH, id, tripEdited, { private: newPrivateState })
+            .then(() => this.props.getData(TRIPS_PATH, tripsFetched));
+    };
+
     render() {
-        return (
-            <>
-                <Jumbotron>
+        if (this.props.trip) {
+            return (
+                <>
                     <h1>Your trip!</h1>
-                    <p>
-                        This is a simple hero unit, a simple jumbotron-style
-                        component for calling extra attention to featured
-                        content or information.
-                    </p>
-                    <p>
-                        <Button variant="primary">Learn more</Button>
-                    </p>
-                </Jumbotron>
-                <div className="calendar-wrap">
-                    <Calendar user={this.props.user} />
-                </div>
-            </>
-        );
+                    <TripDetails
+                        trip={this.props.trip}
+                        onTogglePrivacy={this.onTogglePrivacy}
+                    />
+                    {this.props.events && (
+                        <>
+                            <div className="calendar-wrap">
+                                <Calendar
+                                    events={this.props.events}
+                                    startDate={this.state.selectedDate}
+                                    onSelectSlot={this.onSelectSlot}
+                                    onSelectEvent={this.onSelectEvent}
+                                    onNavigate={date => {
+                                        this.setState({ selectedDate: date });
+                                    }}
+                                />
+                                <EventDetailsContainer
+                                    event={this.state.selectedEvent}
+                                    editMode={this.onEditEvent}
+                                    deleteEvent={this.onDeleteEvent}
+                                />
+                            </div>
+
+                            <EventEditor
+                                show={this.state.eventEditorMode}
+                                onHide={() =>
+                                    this.setState({
+                                        eventEditorMode: false,
+                                    })
+                                }
+                                slot={this.state.selectedSlot}
+                                event={this.state.selectedEvent}
+                                trip={this.props.trip}
+                            />
+                        </>
+                    )}
+                </>
+            );
+        } else {
+            return <p>Loading ...</p>;
+        }
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        shiftEntries: state.shiftEntries,
-        shiftModels: state.shiftModels,
-        user: state.user,
-    };
+const mapStateToProps = (state, ownProps) => {
+    const trip = state.trips.find(
+        trip => trip.id === parseInt(ownProps.match.params.id)
+    );
+    if (trip) {
+        return {
+            user: state.user,
+            trip,
+            events: trip.events.map(event => ({
+                id: event.id,
+                title: event.title,
+                start: event.startsAt,
+                end: event.endsAt,
+                ...event,
+            })),
+        };
+    }
+    return {};
 };
-export default connect(mapStateToProps, { getData, deleteData, postData })(
-    CalendarContainer
-);
+export default connect(mapStateToProps, {
+    getData,
+    deleteData,
+    postData,
+    putData,
+})(CalendarContainer);

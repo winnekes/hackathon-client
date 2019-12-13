@@ -17,9 +17,12 @@ import NavigationContainer from './components/NavigationContainer';
 import SignUpContainer from './components/SignUpContainer';
 import { USERS_PATH } from './constants';
 import TripListContainer from './components/TripListContainer';
+import MapContainer from './components/MapContainer';
+import SlideshowContainer from './components/SlideshowContainer';
 
 class App extends Component {
     lsData = lscache.get('travelin-data');
+
     componentDidMount = () => {
         if (this.lsData && this.lsData.user) {
             this.props.getData(
@@ -50,7 +53,22 @@ class App extends Component {
                             path="/trips"
                             component={TripListContainer}
                         />
+                        <Route
+                            exact
+                            path="/trips/:id"
+                            component={CalendarContainer}
+                        />
                     </Container>
+                    <Route
+                        exact
+                        path="/trips/:id/map"
+                        component={MapContainer}
+                    />
+                    <Route
+                        exact
+                        path="/slideshow/:id"
+                        component={SlideshowContainer}
+                    />
                 </>
             );
         }

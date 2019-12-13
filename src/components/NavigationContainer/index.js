@@ -6,11 +6,12 @@ import Navigation from './Navigation';
 
 class NavigationContainer extends Component {
     onClickLogout = event => {
-        this.props.logout();
         this.props.history.push('/');
+        this.props.logout();
     };
 
     render() {
+        console.log(this.props.match.params);
         return (
             <Navigation user={this.props.user} logout={this.onClickLogout} />
         );

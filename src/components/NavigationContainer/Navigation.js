@@ -7,7 +7,7 @@ import '../assets/styles/navigation.css';
 export default function Navigation(props) {
     return (
         <Navbar className="main-navigation" bg="light" expand="lg">
-            <LinkContainer to="/">
+            <LinkContainer to="/trips">
                 <Navbar.Brand>travelin</Navbar.Brand>
             </LinkContainer>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -12,12 +12,21 @@ class SignUpContainer extends Component {
         username: '',
         password: '',
         profileUrl: '',
+        error: '',
     };
 
     onSubmit = event => {
         event.preventDefault();
-        console.log(this.state);
-        this.props.postData(USERS_PATH, null, this.state);
+        this.props.postData(USERS_PATH, null, this.state).then(response => {
+            if (response) {
+                this.props.history.push('/login');
+            } else {
+                this.setState({
+                    error:
+                        'Are you sure you put in your information correctly? Please try again',
+                });
+            }
+        });
 
         this.setState({
             email: '',
@@ -25,8 +34,6 @@ class SignUpContainer extends Component {
             password: '',
             profileUrl: '',
         });
-
-        this.props.history.push('/');
     };
 
     onChange = event => {
@@ -41,6 +48,7 @@ class SignUpContainer extends Component {
                 onSubmit={this.onSubmit}
                 onChange={this.onChange}
                 values={this.state}
+                error={this.state.error}
             />
         );
     }

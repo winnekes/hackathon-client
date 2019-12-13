@@ -17,7 +17,7 @@ export const logout = () => {
 export const loginResponseTransformer = response => {
     lscache.enableWarnings(true);
     lscache.flushExpired();
-    lscache.set('travelin-data', response.body, 60);
+    lscache.set('travelin-data', response.body, 600);
     return response.body.user;
 };
 
@@ -26,7 +26,7 @@ export const getUserDataResponseTransformer = response => {
     lscache.flushExpired();
     const userData = lscache.get('travelin-data');
     const updatedUserData = { ...userData, user: response.body };
-    lscache.set('travelin-data', updatedUserData, 60);
+    lscache.set('travelin-data', updatedUserData, 600);
     return response.body;
 };
 

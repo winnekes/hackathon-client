@@ -1,11 +1,14 @@
 import React from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 import '../assets/styles/forms.css';
 export default function SignUp(props) {
     return (
         <>
+            <h1>Sign up</h1>
             <div className="main-form" autoComplete="off">
-                <h1>Sign up</h1>
+                {props.error && <Alert variant="primary">{props.error}</Alert>}
                 <Form onSubmit={props.onSubmit}>
                     <Form.Group controlId="formBasicUsername">
                         <Form.Label>Username</Form.Label>
@@ -50,9 +53,12 @@ export default function SignUp(props) {
                             type="url"
                             onChange={props.onChange}
                         />
+                        <Form.Text className="text-muted">
+                            <Link to="/login">Login</Link>
+                        </Form.Text>
                     </Form.Group>
                     <Button variant="danger" type="submit">
-                        Submit
+                        Sign up
                     </Button>
                 </Form>
             </div>

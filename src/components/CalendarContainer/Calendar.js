@@ -24,11 +24,11 @@ function eventStyleGetter(event, start, end, isSelected) {
 export default function Calendar(props) {
     return (
         <div className="calendar">
-            <h3>Calendar</h3>
             <ReactCalendar.Calendar
                 localizer={localizer}
+                date={new Date(props.startDate)}
                 views={['month']}
-                events={[]}
+                events={props.events}
                 eventPropGetter={eventStyleGetter}
                 onNavigate={props.onNavigate}
                 onSelectEvent={props.onSelectEvent}

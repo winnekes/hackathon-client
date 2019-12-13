@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import '../assets/styles/home.css';
-import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import '../assets/styles/home.css';
 export default class HomeContainer extends Component {
     render() {
         return (

@@ -1,11 +1,7 @@
 .main-form {
     margin: 0 auto;
     max-width: 80%;
-}
-
-
-.main-form h1 {
-    margin-bottom: 30px;
+    text-align: center;
 }
 
 .main-form form {
@@ -20,9 +16,22 @@
 }
 
 .main-form .form-group {
-    margin: 25px 0;
+    margin-bottom: 25px;
 }
 
 .main-form .btn {
     font-weight: bold;
+}
+
+.image-preview {
+    display: block;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 7px;
+    border: 1px dashed grey;
+    max-width: 300px;
+}
+
+.main-form .alert {
+    margin: 30px 0;
 }

@@ -1,0 +1,14 @@
+.event-details .thumbnail {
+    width: 100px;
+    height: auto;
+    padding: 5px;
+}
+
+.event-details .images {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.images img {
+    display: block;
+}
