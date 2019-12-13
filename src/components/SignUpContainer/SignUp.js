@@ -60,7 +60,7 @@ export default function SignUp(props) {
                             <Link to="/">Back home</Link>
                         </Form.Text>
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button variant="danger" type="submit">
                         Sign up
                     </Button>
                 </Form>

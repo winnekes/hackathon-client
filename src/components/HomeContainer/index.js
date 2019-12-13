@@ -17,10 +17,10 @@ export default class HomeContainer extends Component {
                     <i>just keep Travelin'</i>
                 </p>
                 <nav>
-                    <Link to="/login" className="btn btn-primary">
+                    <Link to="/login" className="btn btn-danger">
                         Login
                     </Link>
-                    <Link to="/signup" className="btn btn-primary">
+                    <Link to="/signup" className="btn btn-danger">
                         Sign up
                     </Link>
                 </nav>
