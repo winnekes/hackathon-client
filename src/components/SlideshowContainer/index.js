@@ -1,49 +1,116 @@
 import React, { Component } from 'react';
-import { Zoom } from 'react-slideshow-image';
+import { getData } from '../../actions/dispatchHandler';
+import { TRIPS_PATH, BASE_URL } from '../../constants';
+import { slidesFetched } from '../../actions';
+import { FaCameraRetro } from 'react-icons/fa';
+import ImageGallery from 'react-image-gallery';
+import GoogleMapReact from 'google-map-react';
+import { connect } from 'react-redux';
+import Moment from 'react-moment';
+import '../assets/styles/slideshow.css';
 
-const zoomOutProperties = {
-    duration: 5000,
-    transitionDuration: 500,
-    infinite: true,
-    indicators: true,
-    scale: 0.4,
-    arrows: true,
-};
+class SlideshowContainer extends Component {
+    state = { newSlide: 0 };
+    static defaultProps = {
+        zoom: 14,
+    };
 
-export default class SlideshowContainer extends Component {
+    zoomOutProperties = {
+        duration: 5000,
+        transitionDuration: 500,
+        infinite: true,
+        indicators: true,
+        scale: -0.4,
+        arrows: true,
+    };
+
+    onSlide = newSlide => {
+        this.setState({ newSlide });
+        console.log(newSlide);
+    };
+    componentDidMount = () => {
+        this.props.getData(
+            `${TRIPS_PATH}/${this.props.match.params.id}/slides`,
+            slidesFetched
+        );
+    };
     render() {
+        const slides = this.props.slides;
+        const trip = this.props.trip;
         return (
-            <div className="slide-container">
-                {/*         <Zoom {...zoomOutProperties}>
-                    {images.map((each, index) => (
-                        <img key={index} style={{ width: '100%' }} src={each} />
-                    ))}
-                </Zoom> */}
+            <div className="slideshow-container">
+                {trip && (
+                    <>
+                        <h1>{trip.tripTitle}</h1>
+                        <h2>
+                            <Moment format="DD/MM/YY">{trip.tripStart}</Moment>{' '}
+                            to <Moment format="DD/MM/YY">{trip.tripEnd}</Moment>
+                        </h2>
+                    </>
+                )}
+                {slides && (
+                    <div className="slide-container">
+                        <div className="slideshow">
+                            <ImageGallery
+                                items={slides}
+                                onSlide={this.onSlide}
+                            />
+                            >
+                        </div>
+
+                        <div
+                            className="background"
+                            style={{
+                                height: '100vh',
+                                width: '100%',
+                            }}
+                        >
+                            <GoogleMapReact
+                                bootstrapURLKeys={{
+                                    key:
+                                        'AIzaSyDxTJbq2XdBuDML6j4ziSNGnqj8v8u1tBU',
+                                }}
+                                center={{
+                                    lat: slides[this.state.newSlide].lat,
+                                    lng: slides[this.state.newSlide].lng,
+                                }}
+                                defaultZoom={this.props.zoom}
+                                options={{
+                                    mapTypeControl: false,
+                                    scaleControl: false,
+                                    streetViewControl: false,
+                                    rotateControl: false,
+                                    fullscreenControl: false,
+                                    mapTypeId: 'hybrid',
+                                }}
+                            >
+                                {/*              <FaCameraRetro
+                                    lat={slides[this.state.newSlide].lat}
+                                    lng={slides[this.state.newSlide].lng}
+                                /> */}
+                            </GoogleMapReact>
+                        </div>
+                    </div>
+                )}
             </div>
         );
     }
 }
 
-/* const mapStateToProps = (state, ownProps) => {
-    const trip = state.trips.find(
-        trip => trip.id === parseInt(ownProps.match.params.id)
-    );
-    if (trip) {
+const mapStateToProps = (state, ownProps) => {
+    if (state.slides.slides) {
         return {
-            user: state.user,
-            trip,
-            events: trip.events.map(event => ({
-                id: event.id,
-                title: event.title,
-                start: event.startsAt,
-                end: event.endsAt,
-                ...event,
+            trip: state.slides,
+            slides: state.slides.slides.map(slide => ({
+                original: `${BASE_URL}${slide.url}`,
+                thumbnail: `${BASE_URL}${slide.url}`,
+                description: slide.note,
+                ...slide,
             })),
         };
     }
-    return {};
 };
-export default connect(mapStateToProps, { getData, deleteData, postData })(
-    SlideshowContainer
-);
+export default connect(mapStateToProps, { getData })(SlideshowContainer);
+
+/*
  */

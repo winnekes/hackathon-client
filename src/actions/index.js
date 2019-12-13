@@ -12,6 +12,8 @@ export const TRIP_DELETED = 'TRIP_DELETED';
 
 export const MEMBER_ADDED = 'MEMBER_ADDED';
 
+export const SLIDES_FETCHED = 'SLIDES_FETCHED';
+
 export const eventsFetched = actionCreator(EVENTS_FETCHED);
 export const eventEdited = actionCreator(EVENT_EDITED);
 export const eventCreated = actionCreator(EVENT_CREATED);
@@ -23,3 +25,5 @@ export const tripCreated = actionCreator(TRIP_CREATED);
 export const tripDeleted = actionCreator(TRIP_DELETED);
 
 export const memberAdded = actionCreator(MEMBER_ADDED);
+
+export const slidesFetched = actionCreator(SLIDES_FETCHED);

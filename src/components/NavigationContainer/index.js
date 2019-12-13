@@ -11,6 +11,7 @@ class NavigationContainer extends Component {
     };
 
     render() {
+        console.log(this.props.match.params);
         return (
             <Navigation user={this.props.user} logout={this.onClickLogout} />
         );
