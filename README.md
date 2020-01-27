@@ -1,6 +1,6 @@
 # travelin
 
-![Demo](https://i.imgur.com/KqZRMkF.gif)
+[Demo](https://i.imgur.com/KqZRMkF.gif)
 
 ## a trip planner and nostalgia creator
 
