@@ -1,5 +1,7 @@
 # travelin
 
+![Demo](https://i.imgur.com/QOQKHZo.gif)
+
 ## a trip planner and nostalgia creator
 
 **Have you ever organized a trip for friends or family? Run into the same set of issues every time?**
