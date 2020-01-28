@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://travelin-server.herokuapp.com';
+export const BASE_URL = 'http://localhost:4000';
 export const TRIPS_PATH = 'trips';
 
 export const USERS_PATH = 'users';

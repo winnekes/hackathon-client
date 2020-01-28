@@ -20,9 +20,6 @@ export default class HomeContainer extends Component {
                     <Link to="/login" className="btn btn-danger">
                         Login
                     </Link>
-                    <Link to="/signup" className="btn btn-danger">
-                        Sign up
-                    </Link>
                 </nav>
             </div>
         );

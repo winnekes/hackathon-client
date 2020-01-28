@@ -40,7 +40,6 @@ class App extends Component {
                     <Route exact path="/" component={HomeContainer} />
 
                     <Route exact path="/login" component={LoginContainer} />
-                    <Route exact path="/signup" component={SignUpContainer} />
                 </Container>
             );
         } else {
